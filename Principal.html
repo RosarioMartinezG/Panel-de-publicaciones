@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Publicaciones</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-2xl mx-auto">
+        <!-- Publicar sección -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-6">
+            <h2 class="text-xl font-bold mb-2">Publicar</h2>
+            <textarea class="w-full p-2 border rounded-md" placeholder="Escribe tu publicación..."></textarea>
+            <button class="mt-2 bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Publicar</button>
+        </div>
+        
+        <!-- Tarjeta de Publicación -->
+        <div class="bg-white p-4 rounded-lg shadow-md mb-4">
+            <div class="flex items-center mb-2">
+                <div class="w-10 h-10 bg-gray-300 rounded-full"></div>
+                <span class="ml-2 font-semibold">Usuario</span>
+            </div>
+            <h3 class="text-lg font-semibold">Título de la publicación</h3>
+            <p class="text-gray-700">Contenido de la publicación...</p>
+            <div class="flex items-center mt-2">
+                <button class="mr-2 flex items-center text-gray-600 hover:text-blue-500">
+                    👍 <span class="ml-1">Me gusta</span>
+                </button>
+                <button class="flex items-center text-gray-600 hover:text-red-500">
+                    👎 <span class="ml-1">No me gusta</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Puedes duplicar esta tarjeta para más publicaciones -->
+    </div>
+</body>
+</html>

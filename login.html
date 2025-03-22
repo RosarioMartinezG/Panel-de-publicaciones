@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="Dis.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #2c3e50;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .login-container {
+            background: #34495e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+            color: white;
+        }
+        .chat-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 300px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        button {
+            padding: 10px;
+            width: 100%;
+            cursor: pointer;
+            border-radius: 5px;
+            border: none;
+        }
+        button.login {
+            background-color: #1abc9c;
+            color: white;
+        }
+        button.login:hover {
+            background-color: #16a085;
+        }
+        button.send {
+            background-color: #2980b9;
+            color: white;
+        }
+        button.send:hover {
+            background-color: #1f6692;
+        }
+        button.logout {
+            background-color: #e74c3c;
+            color: white;
+        }
+        button.logout:hover {
+            background-color: #c0392b;
+        }
+        #messages {
+            border: 1px solid #ddd;
+            background: #ecf0f1;
+            height: 200px;
+            overflow-y: auto;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .message {
+            padding: 8px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            max-width: 80%;
+            word-wrap: break-word;
+        }
+        .message.rosario {
+            background-color: #3498db;
+            color: white;
+            align-self: flex-start;
+        }
+        .message.diego {
+            background-color: #e67e22;
+            color: white;
+            align-self: flex-end;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <h2>Iniciar Sesión</h2>
+        <input type="text" id="username" placeholder="Usuario">
+        <input type="password" id="password" placeholder="Contraseña">
+        <button class="login" onclick="login()">Ingresar</button>
+        <p id="error" style="color: red;"></p>
+    </div>
+
+    <div class="chat-container" id="chatContainer" style="display: none;">
+        <h2>Chat</h2>
+        <div id="messages"></div>
+        <textarea id="messageInput" placeholder="Escribe un mensaje..."></textarea>
+        <button class="send" onclick="sendMessage()">Enviar</button>
+        <button class="logout" onclick="logout()">Cerrar Sesión</button>
+    </div>
+
+    <script>
+        const users = {
+            'Rosario': '1234',
+            'Diego': '5678'
+        };
+
+        let currentUser = null;
+
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            if (users[username] && users[username] === password) {
+                currentUser = username;
+                document.getElementById('loginContainer').style.display = 'none';
+                document.getElementById('chatContainer').style.display = 'block';
+                loadMessages();
+            } else {
+                document.getElementById('error').innerText = 'Usuario o contraseña incorrectos';
+            }
+        }
+
+        function logout() {
+            currentUser = null;
+            document.getElementById('loginContainer').style.display = 'block';
+            document.getElementById('chatContainer').style.display = 'none';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('error').innerText = '';
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            if (message.trim() === '') return;
+            const chatBox = document.getElementById('messages');
+            const messageDiv = document.createElement('p');
+            messageDiv.classList.add('message', currentUser.toLowerCase());
+            messageDiv.innerHTML = `<strong>${currentUser}:</strong> ${message}`;
+            chatBox.appendChild(messageDiv);
+            messageInput.value = '';
+            saveMessages();
+        }
+
+        function saveMessages() {
+            localStorage.setItem('chatMessages', document.getElementById('messages').innerHTML);
+        }
+
+        function loadMessages() {
+            document.getElementById('messages').innerHTML = localStorage.getItem('chatMessages') || '';
+        }
+    </script>
+</body>
+</html>
